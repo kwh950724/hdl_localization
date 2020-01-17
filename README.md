@@ -58,10 +58,4 @@ Kenji Koide, k.koide@aist.go.jp
 Active Intelligent Systems Laboratory, Toyohashi University of Technology, Japan [\[URL\]](http://www.aisl.cs.tut.ac.jp)  
 Robot Innovation Research Center, National Institute of Advanced Industrial Science and Technology, Japan  [\[URL\]](https://unit.aist.go.jp/rirc/en/team/smart_mobility.html)
 
-
-# hdl_localization-VDC_Lab
-# hdl_localization-VDC_Lab
-# hdl_localization-VDC_Lab
-# hdl_localization_vdc_lab
-# hdl_graph_slam
 # hdl_localization
