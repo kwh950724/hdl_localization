@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- arguments -->
+  <arg name="nodelet_manager" default="velodyne_nodelet_manager" />
+
+  <!-- in case you use velodyne_driver, comment out the following line -->
+  <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)" args="manager" output="screen"/>
+
+    <!-- globalmap_server_nodelet -->
+    <node pkg="nodelet" type="nodelet" name="globalmap_server_nodelet" args="load hdl_localization/GlobalmapServerNodelet $(arg nodelet_manager)">
+      <param name="globalmap_pcd" value="$(find hdl_localization)/data/map.pcd" />
+      <param name="downsample_resolution" value="0.3" />
+    </node>
+
+    <!-- hdl_localization_nodelet -->
+    <node pkg="nodelet" type="nodelet" name="hdl_localization_nodelet" args="load hdl_localization/HdlLocalizationNodelet $(arg nodelet_manager)">
+        <!-- imu settings -->
+        <!-- during "cool_time", imu inputs are ignored -->
+        <param name="use_imu" value="true" />
+        <param name="invert_imu" value="false" />
+        <param name="cool_time_duration" value="2.0" />
+        <!-- ndt settings -->
+        <!-- if NDT is slow for your PC, try DIRECT1 serach method, which is a bit unstable but extremely fast -->
+        <param name="ndt_neighbor_search_method" value="DIRECT1" />
+        <param name="ndt_resolution" value="1.0" />
+        <param name="downsample_resolution" value="0.3" />
+        <!-- specify init pose = "0", use "init_pose parameters" -->
+        <!-- specify init pose = "1", use "rviz 2D pose estimator" -->
+        <!-- specify init pose = "2", use "transformation matrix parameters(a, b, c, d) and gnss coordinates" -->
+	<param name="specify_init_pose" value="2" />
+	<param name="init_pos_x" value="0.0" />
+        <param name="init_pos_y" value="0.0" />
+        <param name="init_pos_z" value="0.0" />
+        <param name="init_ori_w" value="1.0" />
+        <param name="init_ori_x" value="0.0" />
+        <param name="init_ori_y" value="0.0" />
+        <param name="init_ori_z" value="0.0" />
+        <!-- transformation matrix, convert gnss coordinates to map coordinates -->
+	<!-- | a  b | -->
+	<!-- | c  d | -->
+        <param name="a" value="0.0"/>
+        <param name="b" value="0.0"/>
+        <param name="c" value="0.0"/>
+        <param name="d" value="0.0"/>
+    </node>
+</launch>
